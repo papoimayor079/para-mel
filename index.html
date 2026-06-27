@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para ti...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; }
@@ -62,6 +62,11 @@
             min-height: 50px;
         }
 
+        .buttons-column {
+            flex-direction: column;
+            gap: 15px;
+        }
+
         button {
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
@@ -72,9 +77,10 @@
             font-weight: 500;
             text-transform: uppercase;
             transition: all 0.2s ease;
+            width: 100%;
         }
 
-        #btn-si {
+        .btn-vino {
             background: linear-gradient(135deg, #722F37, #4a1c24);
             color: white;
             box-shadow: 0 4px 15px rgba(114, 47, 55, 0.6);
@@ -86,28 +92,46 @@
             color: #aaa;
             border: 1px solid #555;
             position: relative;
+            width: auto;
         }
 
-        #mensaje-final {
+        /* ESTILOS DEL MENSAJE FINAL Y EL POEMA */
+        #contenedor-final {
             display: none;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 20;
+            animation: fadeInFinal 2s ease-out;
+            width: 90%;
+        }
+
+        .te-quiero {
             font-family: 'Cinzel', serif;
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: #ffffff;
             text-shadow: 0 0 20px #722F37, 0 0 40px #722F37;
-            z-index: 20;
-            animation: fadeInFinal 1.5s ease-out;
+            margin-bottom: 20px;
+        }
+
+        .poema {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #e0e0e0;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
         @keyframes fadeInFinal {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
 
+        /* --- FUEGOS ARTIFICIALES --- */
         .firework-container {
             position: absolute;
             width: 100%;
@@ -170,14 +194,25 @@
         <path fill="#722F37" fill-opacity="0.3" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,213.3C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
     </svg>
 
-    <div class="card" id="tarjeta">
+    <!-- Pantalla 1: Pregunta -->
+    <div class="card" id="tarjeta-pregunta">
         <h1>¿Quieres ser mi novia?</h1>
         <div class="buttons">
-            <button id="btn-si">Sí</button>
+            <button id="btn-si" class="btn-vino" style="width: auto;">Sí</button>
             <button id="btn-no">No</button>
         </div>
     </div>
 
+    <!-- Pantalla 2: Elegir Canción -->
+    <div class="card" id="tarjeta-canciones" style="display: none; opacity: 0;">
+        <h1 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Elige nuestra canción:</h1>
+        <div class="buttons buttons-column">
+            <button id="btn-cancion1" class="btn-vino">Sentado Aquí</button>
+            <button id="btn-cancion2" class="btn-vino">Más Humano</button>
+        </div>
+    </div>
+
+    <!-- Contenedor de Fuegos Artificiales -->
     <div class="firework-container" id="fuegos">
         <div class="firework f1"></div>
         <div class="firework f2"></div>
@@ -186,16 +221,33 @@
         <div class="firework f5"></div>
     </div>
 
-    <div id="mensaje-final">Te quiero</div>
+    <!-- Pantalla 3: Mensaje Final y Poema -->
+    <div id="contenedor-final">
+        <div class="te-quiero">Te quiero, Mel</div>
+        <div class="poema">
+            Contigo todo siempre es de otro nivel,<br>
+            tienes una chispa más dulce que la miel.<br>
+            No quería guardarlo en un simple papel:<br>
+            Me encantas demasiado, mi linda Mel.
+        </div>
+    </div>
+
+    <!-- Reproductores de Audio (Ocultos pero listos) -->
+    <audio id="audio-sentado" src="sentado.mp3" preload="auto"></audio>
+    <audio id="audio-humano" src="humano.mp3" preload="auto"></audio>
 
     <script>
         const btnNo = document.getElementById('btn-no');
         const btnSi = document.getElementById('btn-si');
-        const tarjeta = document.getElementById('tarjeta');
+        const tarjetaPregunta = document.getElementById('tarjeta-pregunta');
+        const tarjetaCanciones = document.getElementById('tarjeta-canciones');
+        const btnCancion1 = document.getElementById('btn-cancion1');
+        const btnCancion2 = document.getElementById('btn-cancion2');
         const fuegos = document.getElementById('fuegos');
-        const mensajeFinal = document.getElementById('mensaje-final');
+        const contenedorFinal = document.getElementById('contenedor-final');
         let escalaSi = 1;
 
+        // Movimiento del botón NO
         const esquivar = (e) => {
             if (e.type === 'touchstart') e.preventDefault();
             escalaSi += 0.35;
@@ -213,14 +265,32 @@
         btnNo.addEventListener('mouseover', esquivar);
         btnNo.addEventListener('touchstart', esquivar, {passive: false});
 
+        // Click en SÍ
         btnSi.addEventListener('click', () => {
-            tarjeta.style.opacity = '0';
+            tarjetaPregunta.style.opacity = '0';
             setTimeout(() => {
-                tarjeta.style.display = 'none';
-                mensajeFinal.style.display = 'block';
-                fuegos.style.display = 'block';
+                tarjetaPregunta.style.display = 'none';
+                tarjetaCanciones.style.display = 'block';
+                setTimeout(() => tarjetaCanciones.style.opacity = '1', 50);
             }, 500);
         });
+
+        // Función para estallar todo (fuegos, poema y música)
+        function activarCelebracion(idAudio) {
+            // Le damos play a la canción elegida (100% seguro)
+            document.getElementById(idAudio).play();
+            
+            tarjetaCanciones.style.opacity = '0';
+            setTimeout(() => {
+                tarjetaCanciones.style.display = 'none';
+                contenedorFinal.style.display = 'block';
+                fuegos.style.display = 'block'; // Detona los fuegos CSS
+            }, 500);
+        }
+
+        // Asignamos el reproductor correcto a cada botón
+        btnCancion1.addEventListener('click', () => activarCelebracion('audio-sentado'));
+        btnCancion2.addEventListener('click', () => activarCelebracion('audio-humano'));
     </script>
 </body>
 </html>
