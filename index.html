@@ -1,37 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Para ti</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi novia?</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<div class="container">
+    <div id="app">
+        <h1 id="main-text">¿Quieres ser mi novia?</h1>
+        <div id="button-container">
+            <button id="btn-yes" onclick="accept()">Sí 💖</button>
+            <button id="btn-no" onmouseover="moveNo()">No</button>
+        </div>
+    </div>
 
-  <h1>Para ti ❤️</h1>
+    <div id="petal-container"></div>
 
-  <h2>Quieres ser mi novia</h2>
-
-  <button onclick="aceptar()">Sí</button>
-
-  <!-- elección de canciones -->
-  <div id="musicBox" class="hidden">
-    <h3>Elige una canción 💖</h3>
-
-    <button onclick="playSong('cancion1')">Canción 1</button>
-    <button onclick="playSong('cancion2')">Canción 2</button>
-  </div>
-
-</div>
-
-<!-- música -->
-<audio id="audio"></audio>
-
-<!-- flores -->
-<div id="flowers"></div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
