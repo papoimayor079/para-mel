@@ -6,12 +6,16 @@
     <title>Para Mel</title>
     <style>
         body { background: #0d0d0d; color: white; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: rgba(20, 20, 20, 0.7); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 100; width: 320px; }
+        .card { background: rgba(20, 20, 20, 0.8); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 100; width: 320px; }
         button { padding: 15px 30px; border-radius: 50px; border: none; background: #722F37; color: white; cursor: pointer; margin: 10px; font-weight: bold; }
         #contenedor-final { display: none; text-align: center; z-index: 100; }
-        /* Efecto de partículas */
-        .particula { position: absolute; border-radius: 50%; pointer-events: none; z-index: 50; animation: animar 2s linear forwards; }
-        @keyframes animar { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(5); opacity: 0; } }
+        
+        /* Líneas minimalistas que forman una flor */
+        .flor { position: absolute; width: 40px; height: 40px; pointer-events: none; z-index: 50; animation: subir 5s linear forwards; }
+        .flor::before { content: ""; position: absolute; top: 0; left: 18px; width: 4px; height: 40px; background: #32CD32; } /* Tallo */
+        .flor::after { content: ""; position: absolute; top: 5px; width: 40px; height: 40px; border: 2px solid #FF0000; border-radius: 50% 0; transform: rotate(45deg); } /* Pétalos lineales */
+        
+        @keyframes subir { 0% { bottom: -100px; opacity: 0; } 20% { opacity: 0.8; } 100% { bottom: 110vh; opacity: 0; } }
     </style>
 </head>
 <body>
@@ -24,7 +28,7 @@
     <div class="card" id="tarjeta-canciones" style="display: none;">
         <h1>Elige nuestra canción:</h1>
         <button onclick="iniciar('audio-sentado')">Sentado Aquí</button>
-        <button onclick="iniciar('audio-humano')">Más Humano</button>
+        <button onclick="activar('audio-humano')">Más Humano</button>
     </div>
 
     <div id="contenedor-final">
@@ -43,19 +47,15 @@
             document.getElementById(id).play();
             document.getElementById('tarjeta-canciones').style.display = 'none';
             document.getElementById('contenedor-final').style.display = 'block';
-            setInterval(crearEfecto, 150);
+            setInterval(lanzarFlor, 1200);
         }
 
-        function crearEfecto() {
-            let p = document.createElement('div');
-            p.className = 'particula';
-            const color = ['#FF0000', '#32CD32', '#FFFFFF'][Math.floor(Math.random()*3)];
-            p.style.background = color;
-            p.style.width = p.style.height = (Math.random()*15+5) + 'px';
-            p.style.left = Math.random()*100 + 'vw';
-            p.style.top = Math.random()*100 + 'vh';
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 2000);
+        function lanzarFlor() {
+            let f = document.createElement('div');
+            f.className = 'flor';
+            f.style.left = Math.random()*100 + 'vw';
+            document.body.appendChild(f);
+            setTimeout(() => f.remove(), 5000);
         }
     </script>
 </body>
