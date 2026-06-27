@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para ti...</title>
+    <title>Para Mel</title>
     <style>
         body { background: #0d0d0d; color: white; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: rgba(20, 20, 20, 0.7); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 10; width: 350px; }
-        button { padding: 15px 30px; border-radius: 50px; border: none; background: linear-gradient(135deg, #722F37, #4a1c24); color: white; cursor: pointer; margin: 10px; font-weight: bold; transition: 0.3s; }
-        #contenedor-final { display: none; text-align: center; z-index: 20; padding: 20px; }
-        .te-quiero { font-size: 3rem; font-weight: bold; color: #fff; text-shadow: 0 0 20px #722F37; }
-        
-        /* Estilos de alta calidad para fuegos y flores */
-        .particula { position: absolute; border-radius: 50%; opacity: 0; pointer-events: none; }
-        @keyframes volar { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(10); opacity: 0; } }
+        .card { background: rgba(20, 20, 20, 0.7); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 100; width: 320px; }
+        button { padding: 15px 30px; border-radius: 50px; border: none; background: #722F37; color: white; cursor: pointer; margin: 10px; font-weight: bold; }
+        #contenedor-final { display: none; text-align: center; z-index: 100; }
+        /* Efecto de partículas */
+        .particula { position: absolute; border-radius: 50%; pointer-events: none; z-index: 50; animation: animar 2s linear forwards; }
+        @keyframes animar { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(5); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -25,43 +23,39 @@
 
     <div class="card" id="tarjeta-canciones" style="display: none;">
         <h1>Elige nuestra canción:</h1>
-        <button onclick="activar('audio-sentado')">Sentado Aquí</button>
-        <button onclick="activar('audio-humano')">Más Humano</button>
+        <button onclick="iniciar('audio-sentado')">Sentado Aquí</button>
+        <button onclick="iniciar('audio-humano')">Más Humano</button>
     </div>
 
     <div id="contenedor-final">
-        <div class="te-quiero">Te quiero, Mel</div>
-        <p>Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
+        <h1 style="color: white; font-size: 3rem;">Te quiero, Mel</h1>
+        <p style="font-size: 1.2rem;">Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
     </div>
 
     <audio id="audio-sentado" src="sentado.mp3"></audio>
     <audio id="audio-humano" src="humano.mp3"></audio>
 
     <script>
-        const btnSi = document.getElementById('btn-si'), btnNo = document.getElementById('btn-no'), tarjetaPregunta = document.getElementById('tarjeta-pregunta'), tarjetaCanciones = document.getElementById('tarjeta-canciones'), contenedorFinal = document.getElementById('contenedor-final');
+        document.getElementById('btn-si').onclick = () => { document.getElementById('tarjeta-pregunta').style.display = 'none'; document.getElementById('tarjeta-canciones').style.display = 'block'; };
+        document.getElementById('btn-no').onmouseover = (e) => { e.target.style.position = 'fixed'; e.target.style.left = Math.random()*80 + 'vw'; e.target.style.top = Math.random()*80 + 'vh'; };
 
-        btnSi.onclick = () => { tarjetaPregunta.style.display = 'none'; tarjetaCanciones.style.display = 'block'; };
-        btnNo.onmouseover = () => { btnNo.style.position = 'fixed'; btnNo.style.left = Math.random()*80 + 'vw'; btnNo.style.top = Math.random()*80 + 'vh'; };
-
-        function activar(id) {
+        function iniciar(id) {
             document.getElementById(id).play();
-            tarjetaCanciones.style.display = 'none';
-            contenedorFinal.style.display = 'block';
-            setInterval(lanzarEfecto, 200);
+            document.getElementById('tarjeta-canciones').style.display = 'none';
+            document.getElementById('contenedor-final').style.display = 'block';
+            setInterval(crearEfecto, 150);
         }
 
-        function lanzarEfecto() {
-            let e = document.createElement('div');
-            e.className = 'particula';
-            // Colores: Rojo fuerte, Verde vivo y Blanco brillante
-            const paleta = ['#FF0000', '#32CD32', '#FFFFFF'];
-            e.style.backgroundColor = paleta[Math.floor(Math.random()*paleta.length)];
-            e.style.width = e.style.height = (Math.random()*15 + 10) + 'px';
-            e.style.left = Math.random()*100 + 'vw';
-            e.style.top = Math.random()*100 + 'vh';
-            e.style.animation = 'volar 2s ease-out';
-            document.body.appendChild(e);
-            setTimeout(() => e.remove(), 2000);
+        function crearEfecto() {
+            let p = document.createElement('div');
+            p.className = 'particula';
+            const color = ['#FF0000', '#32CD32', '#FFFFFF'][Math.floor(Math.random()*3)];
+            p.style.background = color;
+            p.style.width = p.style.height = (Math.random()*15+5) + 'px';
+            p.style.left = Math.random()*100 + 'vw';
+            p.style.top = Math.random()*100 + 'vh';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 2000);
         }
     </script>
 </body>
