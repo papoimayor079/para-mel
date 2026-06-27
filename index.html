@@ -1,183 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Para Mel ❤️</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <title>Para Ti 💖</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 
 <body>
 
-    <!-- Fondo -->
+  <div class="container">
 
-    <div class="background">
+    <h1>💖 Esto es para ti 💖</h1>
 
-        <div class="gradient"></div>
+    <p id="texto">
+      Hay personas que llegan sin avisar… y se quedan en el corazón.
+    </p>
 
-        <div class="waves"></div>
+    <button onclick="cambiarTexto()">💌 Mensaje</button>
+    <button onclick="mostrarCarta()">📩 Abrir carta</button>
 
-        <div class="particles"></div>
-
+    <div id="carta" class="carta oculto">
+      <h2>Para ti 💖</h2>
+      <p>
+        No sé cómo explicarlo bien, pero contigo todo se siente diferente.
+        Más bonito, más tranquilo, más real.
+      </p>
+      <p>
+        Si algún día lees esto, quiero que sepas que eres importante para mí.
+      </p>
     </div>
 
-
-
-    <!-- Pantalla Principal -->
-
-    <section class="screen active" id="screenQuestion">
-
-        <div class="glass-card">
-
-            <h1 class="title">
-
-                ¿Quieres ser mi novia?
-
-            </h1>
-
-            <p class="subtitle">
-
-                Hay algo que quiero preguntarte...
-
-            </p>
-
-            <div class="buttons">
-
-                <button id="btnSi">
-
-                    Sí ❤️
-
-                </button>
-
-                <button id="btnNo">
-
-                    No
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- Elegir Canción -->
-
-    <section class="screen" id="screenMusic">
-
-        <div class="glass-card">
-
-            <h2 class="title">
-
-                Elige nuestra canción
-
-            </h2>
-
-            <p class="subtitle">
-
-                Escoge la que quieras escuchar primero.
-
-            </p>
-
-            <div class="music-buttons">
-
-                <button class="song" data-song="sentado">
-
-                    🎵 Sentado Aquí
-
-                </button>
-
-                <button class="song" data-song="humano">
-
-                    🎵 Más Humano
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- Pantalla Final -->
-
-    <section class="screen" id="screenFinal">
-
-        <div class="glass-card final-card">
-
-            <h1 id="mainTitle">
-
-                Te quiero, Mel
-
-            </h1>
-
-            <p id="poema">
-
-                Contigo todo siempre es de otro nivel,
-
-                <br>
-
-                tienes una chispa más dulce que la miel.
-
-                <br>
-
-                No quería guardarlo en un simple papel:
-
-                <br>
-
-                Me encantas demasiado, mi linda Mel.
-
-            </p>
-
-
-
-            <!-- Aquí aparecerá el ramo -->
-
-            <div id="flowerContainer">
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- Audios -->
-
-    <audio id="sentado" preload="auto">
-
-        <source src="sentado.mp3" type="audio/mpeg">
-
-    </audio>
-
-
-
-    <audio id="humano" preload="auto">
-
-        <source src="humano.mp3" type="audio/mpeg">
-
-    </audio>
-
-
-
-    <script src="script.js"></script>
+  </div>
 
 </body>
-
 </html>
