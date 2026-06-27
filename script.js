@@ -1,34 +1,42 @@
-function aceptar() {
-  document.getElementById("musicBox").classList.remove("hidden");
-  crearFlores();
+const audioYes = new Audio('cancion1.mp3');
+const audioNo = new Audio('cancion2.mp3');
+
+function accept() {
+    // Detener cualquier sonido previo
+    audioNo.pause();
+    audioNo.currentTime = 0;
+
+    // Reproducir música de éxito
+    audioYes.play();
+
+    // Cambiar texto
+    document.getElementById('main-text').innerText = "¡Sabía que dirías que sí! 💕";
+
+    // Ocultar botones
+    document.getElementById('button-container').style.display = 'none';
+
+    // Activar lluvia de pétalos
+    setInterval(createPetal, 300);
 }
 
-function playSong(song) {
-  const audio = document.getElementById("audio");
-
-  // 🔴 CAMBIA ESTOS LINKS por tus canciones reales
-  if (song === "cancion1") {
-    audio.src = "cancion1.mp3";
-  } else {
-    audio.src = "cancion2.mp3";
-  }
-
-  audio.play();
-  crearFlores();
+// Hacer que el botón "No" se mueva si intentan presionarlo
+function moveNo() {
+    const btnNo = document.getElementById('btn-no');
+    btnNo.style.position = 'absolute';
+    btnNo.style.top = Math.random() * 80 + 'vh';
+    btnNo.style.left = Math.random() * 80 + 'vw';
 }
 
-// 🌹 flores cayendo
-function crearFlores() {
-  const flowers = document.getElementById("flowers");
+function createPetal() {
+    const petal = document.createElement('div');
+    petal.innerText = '🌹';
+    petal.className = 'petal';
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.animationDuration = Math.random() * 3 + 2 + 's';
+    document.getElementById('petal-container').appendChild(petal);
 
-  for (let i = 0; i < 30; i++) {
-    let f = document.createElement("div");
-    f.classList.add("flower");
-    f.innerHTML = "🌹";
-
-    f.style.left = Math.random() * 100 + "vw";
-    f.style.animationDuration = (3 + Math.random() * 5) + "s";
-
-    flowers.appendChild(f);
-  }
+    // Eliminar pétalo tras caer
+    setTimeout(() => {
+        petal.remove();
+    }, 5000);
 }
