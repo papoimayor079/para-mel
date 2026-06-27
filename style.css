@@ -1,52 +1,57 @@
 body {
-  margin: 0;
-  height: 100vh;
-  background: #0b0b0b; /* negro */
-  color: white;
-  font-family: Arial;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1a0000 0%, #4a0000 100%);
+    font-family: 'Playfair Display', serif;
+    color: white;
+    overflow: hidden;
+    text-align: center;
 }
 
-.container {
-  text-align: center;
+#app {
+    z-index: 10;
 }
 
-h2 {
-  color: #8b0000; /* rojo vino */
-  font-size: 2.2rem;
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 button {
-  background: #8b0000;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  margin: 10px;
-  border-radius: 10px;
-  cursor: pointer;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50px;
+    transition: 0.3s;
+    font-family: 'Playfair Display', serif;
 }
 
-button:hover {
-  background: #a30000;
+#btn-yes {
+    background-color: #ff4d6d;
+    color: white;
 }
 
-.hidden {
-  display: none;
+#btn-no {
+    background-color: #333;
+    color: white;
 }
 
-/* flores */
-.flower {
-  position: absolute;
-  top: -50px;
-  font-size: 25px;
-  animation: fall 5s linear infinite;
+/* Animación de pétalos */
+.petal {
+    position: absolute;
+    top: -50px;
+    font-size: 20px;
+    animation: fall linear forwards;
 }
 
 @keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(360deg);
-  }
+    to { transform: translateY(110vh) rotate(360deg); }
 }
