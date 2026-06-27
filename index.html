@@ -7,14 +7,31 @@
 </head>
 
 <body>
-  <div class="container">
-    <h1>Para ti ❤️</h1>
 
-    <h2>Quieres ser mi novia</h2>
+<div class="container">
 
-    <button onclick="alert('💖 Te quiero 💖')">
-      Sí
-    </button>
+  <h1>Para ti ❤️</h1>
+
+  <h2>Quieres ser mi novia</h2>
+
+  <button onclick="aceptar()">Sí</button>
+
+  <!-- elección de canciones -->
+  <div id="musicBox" class="hidden">
+    <h3>Elige una canción 💖</h3>
+
+    <button onclick="playSong('cancion1')">Canción 1</button>
+    <button onclick="playSong('cancion2')">Canción 2</button>
   </div>
+
+</div>
+
+<!-- música -->
+<audio id="audio"></audio>
+
+<!-- flores -->
+<div id="flowers"></div>
+
+<script src="script.js"></script>
 </body>
 </html>
