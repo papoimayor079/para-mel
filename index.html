@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para Mel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #0d0d0d; color: white; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: rgba(20, 20, 20, 0.8); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 100; width: 320px; }
-        button { padding: 15px 30px; border-radius: 50px; border: none; background: #722F37; color: white; cursor: pointer; margin: 10px; font-weight: bold; }
-        #contenedor-final { display: none; text-align: center; z-index: 100; }
-        
-        /* Líneas minimalistas que forman una flor */
-        .flor { position: absolute; width: 40px; height: 40px; pointer-events: none; z-index: 50; animation: subir 5s linear forwards; }
-        .flor::before { content: ""; position: absolute; top: 0; left: 18px; width: 4px; height: 40px; background: #32CD32; } /* Tallo */
-        .flor::after { content: ""; position: absolute; top: 5px; width: 40px; height: 40px; border: 2px solid #FF0000; border-radius: 50% 0; transform: rotate(45deg); } /* Pétalos lineales */
-        
-        @keyframes subir { 0% { bottom: -100px; opacity: 0; } 20% { opacity: 0.8; } 100% { bottom: 110vh; opacity: 0; } }
+        body { background: #0d0d0d; color: #ffffff; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .card { background: rgba(20, 20, 20, 0.7); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 100; width: 320px; }
+        h1 { font-family: 'Cinzel', serif; margin-bottom: 20px; color: #fff; }
+        button { font-family: 'Montserrat', sans-serif; padding: 15px 30px; border-radius: 50px; border: none; background: #722F37; color: white; cursor: pointer; margin: 10px; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        button:hover { background: #4a1c24; }
+        #contenedor-final { display: none; text-align: center; z-index: 100; padding: 20px; }
+        .rosa { font-size: 2.5rem; margin: 10px; display: inline-block; }
     </style>
 </head>
 <body>
@@ -28,12 +25,13 @@
     <div class="card" id="tarjeta-canciones" style="display: none;">
         <h1>Elige nuestra canción:</h1>
         <button onclick="iniciar('audio-sentado')">Sentado Aquí</button>
-        <button onclick="activar('audio-humano')">Más Humano</button>
+        <button onclick="iniciar('audio-humano')">Más Humano</button>
     </div>
 
     <div id="contenedor-final">
-        <h1 style="color: white; font-size: 3rem;">Te quiero, Mel</h1>
-        <p style="font-size: 1.2rem;">Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
+        <h1 style="font-size: 3rem;">Te quiero, Mel</h1>
+        <p style="font-size: 1.2rem; line-height: 1.6;">Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
+        <div id="area-rosas" style="margin-top: 20px;"></div>
     </div>
 
     <audio id="audio-sentado" src="sentado.mp3"></audio>
@@ -47,15 +45,15 @@
             document.getElementById(id).play();
             document.getElementById('tarjeta-canciones').style.display = 'none';
             document.getElementById('contenedor-final').style.display = 'block';
-            setInterval(lanzarFlor, 1200);
-        }
-
-        function lanzarFlor() {
-            let f = document.createElement('div');
-            f.className = 'flor';
-            f.style.left = Math.random()*100 + 'vw';
-            document.body.appendChild(f);
-            setTimeout(() => f.remove(), 5000);
+            
+            // Aparecen 5 rosas estáticas
+            const area = document.getElementById('area-rosas');
+            for(let i=0; i<5; i++) {
+                let r = document.createElement('span');
+                r.className = 'rosa';
+                r.innerHTML = '🌹';
+                area.appendChild(r);
+            }
         }
     </script>
 </body>
