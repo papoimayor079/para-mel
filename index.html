@@ -6,16 +6,93 @@
     <title>Para Mel</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #0d0d0d; color: #ffffff; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: rgba(20, 20, 20, 0.7); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 100; width: 320px; }
+        body { 
+            background: radial-gradient(circle at center, #1a0507 0%, #000000 100%); 
+            color: #ffffff; 
+            font-family: 'Montserrat', sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            overflow: hidden; 
+        }
+
+        /* Efecto de ondas vino */
+        .wave-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .wave {
+            position: absolute;
+            bottom: -50px;
+            width: 200%;
+            height: 100%;
+            background: #722F37;
+            opacity: 0.2;
+            border-radius: 40%;
+            animation: wave 10s linear infinite;
+        }
+        @keyframes wave {
+            0% { transform: translateX(-50%) rotate(0deg); }
+            100% { transform: translateX(0%) rotate(360deg); }
+        }
+
+        .card { 
+            background: rgba(0, 0, 0, 0.6); 
+            border: 1px solid #722F37; 
+            border-radius: 20px; 
+            padding: 40px; 
+            text-align: center; 
+            z-index: 10; 
+            width: 320px; 
+            box-shadow: 0 0 20px rgba(114, 47, 55, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
         h1 { font-family: 'Cinzel', serif; margin-bottom: 20px; color: #fff; }
-        button { font-family: 'Montserrat', sans-serif; padding: 15px 30px; border-radius: 50px; border: none; background: #722F37; color: white; cursor: pointer; margin: 10px; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
-        button:hover { background: #4a1c24; }
-        #contenedor-final { display: none; text-align: center; z-index: 100; padding: 20px; }
-        .rosa { font-size: 2.5rem; margin: 10px; display: inline-block; }
+
+        button { 
+            font-family: 'Montserrat', sans-serif; 
+            padding: 15px 30px; 
+            border-radius: 50px; 
+            border: none; 
+            background: #722F37; 
+            color: white; 
+            cursor: pointer; 
+            margin: 10px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            transition: 0.3s; 
+        }
+        button:hover { background: #9c3f4a; transform: scale(1.05); }
+
+        #contenedor-final { display: none; text-align: center; z-index: 10; padding: 20px; }
+        
+        .rosa { 
+            font-size: 2.5rem; 
+            margin: 10px; 
+            display: inline-block; 
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Fondo de ondas -->
+    <div class="wave-container">
+        <div class="wave"></div>
+    </div>
+
     <div class="card" id="tarjeta-pregunta">
         <h1>¿Quieres ser mi novia?</h1>
         <button id="btn-si">Sí</button>
@@ -28,9 +105,9 @@
         <button onclick="iniciar('audio-humano')">Más Humano</button>
     </div>
 
-    <div id="contenedor-final">
-        <h1 style="font-size: 3rem;">Te quiero, Mel</h1>
-        <p style="font-size: 1.2rem; line-height: 1.6;">Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
+    <div id="contenedor-final" class="card">
+        <h1 style="font-size: 2rem;">Te quiero, Mel</h1>
+        <p style="font-size: 1.1rem; line-height: 1.6;">Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
         <div id="area-rosas" style="margin-top: 20px;"></div>
     </div>
 
@@ -38,20 +115,29 @@
     <audio id="audio-humano" src="humano.mp3"></audio>
 
     <script>
-        document.getElementById('btn-si').onclick = () => { document.getElementById('tarjeta-pregunta').style.display = 'none'; document.getElementById('tarjeta-canciones').style.display = 'block'; };
-        document.getElementById('btn-no').onmouseover = (e) => { e.target.style.position = 'fixed'; e.target.style.left = Math.random()*80 + 'vw'; e.target.style.top = Math.random()*80 + 'vh'; };
+        document.getElementById('btn-si').onclick = () => { 
+            document.getElementById('tarjeta-pregunta').style.display = 'none'; 
+            document.getElementById('tarjeta-canciones').style.display = 'block'; 
+        };
+        
+        document.getElementById('btn-no').onmouseover = (e) => { 
+            e.target.style.position = 'fixed'; 
+            e.target.style.left = Math.random()*80 + 'vw'; 
+            e.target.style.top = Math.random()*80 + 'vh'; 
+        };
 
         function iniciar(id) {
-            document.getElementById(id).play();
+            const audio = document.getElementById(id);
+            audio.play();
             document.getElementById('tarjeta-canciones').style.display = 'none';
             document.getElementById('contenedor-final').style.display = 'block';
             
-            // Aparecen 5 rosas estáticas
             const area = document.getElementById('area-rosas');
             for(let i=0; i<5; i++) {
                 let r = document.createElement('span');
                 r.className = 'rosa';
                 r.innerHTML = '🌹';
+                r.style.animationDelay = (i * 0.2) + 's';
                 area.appendChild(r);
             }
         }
