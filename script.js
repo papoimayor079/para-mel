@@ -1,35 +1,34 @@
-// TEXTO DINÁMICO
-function cambiarTexto() {
-  const frases = [
-    "Eres alguien muy especial 💖",
-    "Me alegra haberte conocido 💫",
-    "Tu sonrisa vale mucho 🌸",
-    "Esto es solo para ti 💌"
-  ];
-
-  const random = Math.floor(Math.random() * frases.length);
-  document.getElementById("texto").innerText = frases[random];
+function aceptar() {
+  document.getElementById("musicBox").classList.remove("hidden");
+  crearFlores();
 }
 
-// MOSTRAR CARTA
-function mostrarCarta() {
-  document.getElementById("carta").classList.toggle("oculto");
+function playSong(song) {
+  const audio = document.getElementById("audio");
+
+  // 🔴 CAMBIA ESTOS LINKS por tus canciones reales
+  if (song === "cancion1") {
+    audio.src = "cancion1.mp3";
+  } else {
+    audio.src = "cancion2.mp3";
+  }
+
+  audio.play();
+  crearFlores();
 }
 
-// CORAZONES ANIMADOS
-function crearCorazon() {
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.innerHTML = "❤";
+// 🌹 flores cayendo
+function crearFlores() {
+  const flowers = document.getElementById("flowers");
 
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  for (let i = 0; i < 30; i++) {
+    let f = document.createElement("div");
+    f.classList.add("flower");
+    f.innerHTML = "🌹";
 
-  document.body.appendChild(heart);
+    f.style.left = Math.random() * 100 + "vw";
+    f.style.animationDuration = (3 + Math.random() * 5) + "s";
 
-  setTimeout(() => {
-    heart.remove();
-  }, 5000);
+    flowers.appendChild(f);
+  }
 }
-
-setInterval(crearCorazon, 300);
