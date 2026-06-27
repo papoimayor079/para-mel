@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para ti...</title>
     <style>
-        body { background: #0d0d0d; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .card { background: rgba(20,20,20,0.8); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 10; width: 300px; }
-        button { padding: 15px 30px; border-radius: 50px; border: none; background: #722F37; color: white; cursor: pointer; margin: 10px; font-weight: bold; }
-        #contenedor-final { display: none; text-align: center; z-index: 20; }
-        /* Animación de Fuego y Flores */
-        .efecto { position: absolute; width: 20px; height: 20px; border-radius: 50%; opacity: 0; animation: animarTodo 2s ease-out; }
-        @keyframes animarTodo { 
-            0% { transform: scale(0); opacity: 1; } 
-            100% { transform: scale(8); opacity: 0; } 
-        }
+        body { background: #0d0d0d; color: white; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+        .card { background: rgba(20, 20, 20, 0.7); border: 1px solid #722F37; border-radius: 20px; padding: 40px; text-align: center; z-index: 10; width: 350px; }
+        button { padding: 15px 30px; border-radius: 50px; border: none; background: linear-gradient(135deg, #722F37, #4a1c24); color: white; cursor: pointer; margin: 10px; font-weight: bold; transition: 0.3s; }
+        #contenedor-final { display: none; text-align: center; z-index: 20; padding: 20px; }
+        .te-quiero { font-size: 3rem; font-weight: bold; color: #fff; text-shadow: 0 0 20px #722F37; }
+        
+        /* Estilos de alta calidad para fuegos y flores */
+        .particula { position: absolute; border-radius: 50%; opacity: 0; pointer-events: none; }
+        @keyframes volar { 0% { transform: scale(0); opacity: 1; } 100% { transform: scale(10); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -31,11 +30,9 @@
     </div>
 
     <div id="contenedor-final">
-        <h1>Te quiero, Mel</h1>
+        <div class="te-quiero">Te quiero, Mel</div>
         <p>Contigo todo siempre es de otro nivel,<br>tienes una chispa más dulce que la miel.<br>No quería guardarlo en un simple papel:<br>Me encantas demasiado, mi linda Mel.</p>
     </div>
-
-    <div id="efectos-container"></div>
 
     <audio id="audio-sentado" src="sentado.mp3"></audio>
     <audio id="audio-humano" src="humano.mp3"></audio>
@@ -44,24 +41,27 @@
         const btnSi = document.getElementById('btn-si'), btnNo = document.getElementById('btn-no'), tarjetaPregunta = document.getElementById('tarjeta-pregunta'), tarjetaCanciones = document.getElementById('tarjeta-canciones'), contenedorFinal = document.getElementById('contenedor-final');
 
         btnSi.onclick = () => { tarjetaPregunta.style.display = 'none'; tarjetaCanciones.style.display = 'block'; };
-        btnNo.onmouseover = () => { btnNo.style.position = 'absolute'; btnNo.style.left = Math.random()*80 + 'vw'; btnNo.style.top = Math.random()*80 + 'vh'; };
+        btnNo.onmouseover = () => { btnNo.style.position = 'fixed'; btnNo.style.left = Math.random()*80 + 'vw'; btnNo.style.top = Math.random()*80 + 'vh'; };
 
         function activar(id) {
             document.getElementById(id).play();
             tarjetaCanciones.style.display = 'none';
             contenedorFinal.style.display = 'block';
-            
-            // Generar fuegos y flores (rojo y verde)
-            const colores = ['#FF0000', '#32CD32', '#FFFFFF'];
-            for(let i=0; i<30; i++) {
-                let e = document.createElement('div'); 
-                e.className = 'efecto';
-                e.style.left = Math.random()*100 + '%'; 
-                e.style.top = Math.random()*100 + '%';
-                e.style.backgroundColor = colores[Math.floor(Math.random()*colores.length)];
-                e.style.animationDelay = (i*0.1) + 's';
-                document.getElementById('efectos-container').appendChild(e);
-            }
+            setInterval(lanzarEfecto, 200);
+        }
+
+        function lanzarEfecto() {
+            let e = document.createElement('div');
+            e.className = 'particula';
+            // Colores: Rojo fuerte, Verde vivo y Blanco brillante
+            const paleta = ['#FF0000', '#32CD32', '#FFFFFF'];
+            e.style.backgroundColor = paleta[Math.floor(Math.random()*paleta.length)];
+            e.style.width = e.style.height = (Math.random()*15 + 10) + 'px';
+            e.style.left = Math.random()*100 + 'vw';
+            e.style.top = Math.random()*100 + 'vh';
+            e.style.animation = 'volar 2s ease-out';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 2000);
         }
     </script>
 </body>
